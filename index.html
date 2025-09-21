@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUESTRA BODA X&M</title>
+  <!-- Fuente Harry Potter -->
+  <link href="https://fonts.cdnfonts.com/css/harry-p" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #3a2c2a;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 20% 20%, #f5e6b7 0 2%, transparent 40%),
+        radial-gradient(circle at 80% 80%, #f7e2c0 0 2%, transparent 40%);
+      background-repeat: no-repeat;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 680px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(80, 62, 20, 0.12);
+      padding: 2.5rem 2rem;
+      position: relative;
+      border: 2px solid #c9a770;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .magic-border {
+      border-top: 3px solid #c9a770;
+      width: 40%;
+      margin: 1.5em auto 2em auto;
+      border-radius: 8px;
+      position: relative;
+    }
+    .magic-border:before, .magic-border:after {
+      content: "✧";
+      font-family: 'Harry P', serif;
+      color: #a0785a;
+      font-size: 2em;
+      position: absolute;
+      top: -1.1em;
+    }
+    .magic-border:before { left: -2em; }
+    .magic-border:after { right: -2em; }
+
+    h1 {
+      text-align: center;
+      font-size: 2.9em;
+      margin-bottom: 0.3em;
+      font-family: 'Harry P', serif;
+      color: #7f620d;
+      letter-spacing: 2px;
+      text-shadow: 0 1px 3px #f5e6b7, 0 2px 0 #c9a770;
+      position: relative;
+    }
+    .date {
+      text-align: center;
+      font-size: 1.35em;
+      margin-bottom: 1.5em;
+      color: #a0785a;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .snape-quote {
+      text-align: center;
+      font-size: 1.10em;
+      font-style: italic;
+      margin: 1.5em 0 2em 0;
+      color: #4d3a28;
+      position: relative;
+      background: rgba(248, 246, 239, 0.9);
+      border-left: 5px solid #b6a05f;
+      border-radius: 8px;
+      padding: 1.2em 1em 1em 2em;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Harry P', serif;
+      letter-spacing: 0.5px;
+    }
+    .snape-quote .snape-always {
+      display: block;
+      font-size: 1.18em;
+      margin-top: 0.6em;
+      color: #7f620d;
+      letter-spacing: 1px;
+      font-family: 'Harry P', serif;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1em;
+      justify-content: center;
+      margin-bottom: 2em;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: linear-gradient(90deg, #c9a770 30%, #fffbe5 100%);
+      color: #402d04;
+      padding: 0.8em 1.6em;
+      border: 2px solid #a0785a;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-family: 'Harry P', serif;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #e2c06a33;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      margin-bottom: 0.2em;
+    }
+    .btn:hover {
+      background: #f5e6b7;
+      color: #7a6123;
+      border-color: #d8bb75;
+    }
+    .btn .icon {
+      margin-right: 0.6em;
+      color: #7a6123;
+    }
+
+    .video {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2em;
+    }
+    .video video, .video iframe {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 15px;
+      box-shadow: 0 4px 24px #e7d6b680;
+      aspect-ratio: 16/9;
+      border: 3px solid #c9a770;
+      background: #fff;
+    }
+
+    .section {
+      margin-bottom: 2em;
+    }
+    .section-title {
+      font-family: 'Harry P', serif;
+      font-size: 1.2em;
+      color: #a0785a;
+      margin-bottom: 0.2em;
+      letter-spacing: 1.5px;
+    }
+    .temple-salon {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 0.8em;
+      font-size: 1.14em;
+    }
+
+    .warning {
+      background: #fff8e8;
+      color: #b84a4a;
+      padding: 1em;
+      border-radius: 8px;
+      margin-bottom: 2em;
+      text-align: center;
+      border: 1.5px solid #ffd6ae;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .gifts-list {
+      display: flex;
+      gap: 1em;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0.4em 0 0 0;
+      list-style: none;
+    }
+    .gifts-list li a {
+      color: #7f620d;
+      background: #fffbe5;
+      padding: 0.4em 1em;
+      border-radius: 8px;
+      border: 1.5px solid #e1d199;
+      text-decoration: underline;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+    .gifts-list li a:hover {
+      background: #f5e6b7;
+      color: #a0785a;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8em;
+      align-items: stretch;
+      margin-top: 0.4em;
+    }
+    input, textarea, select, button[type="submit"] {
+      padding: 0.7em;
+      border-radius: 7px;
+      border: 1.5px solid #c9a770;
+      font-size: 1em;
+      font-family: inherit;
+      background: #fffbe5;
+      color: #3a2c2a;
+    }
+    button[type="submit"] {
+      background: #c9a770;
+      color: #3a2c2a;
+      border: none;
+      font-weight: bold;
+      font-family: 'Harry P', serif;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      border: 2px solid #a0785a;
+    }
+    button[type="submit"]:hover {
+      background: #7f620d;
+      color: #fffbe5;
+      border-color: #d8bb75;
+    }
+    .success-msg {
+      color: #418a58;
+      background: #eaf7ec;
+      border: 1px solid #b6e2c0;
+      padding: 1em;
+      border-radius: 8px;
+      margin-top: 1em;
+      text-align: center;
+      font-weight: 600;
+    }
+    /* Detalles mágicos */
+    .stars {
+      text-align: center;
+      font-size: 1.4em;
+      color: #e1c670;
+      margin-bottom: 0.6em;
+      letter-spacing: 0.3em;
+      font-family: 'Harry P', serif;
+    }
+
+    /* Patronus ciervo animado */
+    .patronus-deer-container {
+      position: fixed;
+      left: -180px;
+      top: 65%;
+      width: 180px;
+      height: 160px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.24;
+      animation: deer-walk 22s linear infinite;
+      filter: drop-shadow(0px 0px 16px #b5cbe7) blur(0.5px);
+    }
+    @keyframes deer-walk {
+      0% { left: -180px; opacity: 0.16; }
+      3% { opacity: 0.24; }
+      85% { opacity: 0.18; }
+      100% { left: 100vw; opacity: 0.10; }
+    }
+    @media (max-width: 700px) {
+      .container { padding: 1em; }
+      h1 { font-size: 2em; }
+      .video video, .video iframe { max-width: 100vw; }
+      .patronus-deer-container { width: 110px; height: 95px; top: 72%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Patronus ciervo SVG animado -->
+  <div class="patronus-deer-container" aria-hidden="true">
+    <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#glow)">
+        <path d="M120 150 Q135 120 170 120 Q180 120 180 130 Q180 140 165 145 Q155 150 140 150 Z"
+          fill="#b5e0fa" opacity="0.12"/>
+        <path d="M70 165 Q85 150 120 150 Q140 150 140 170 Q140 180 120 180 Q100 180 70 165 Z"
+          fill="#d5f0fa" opacity="0.10"/>
+        <!-- Body -->
+        <path d="M50 140 Q60 100 90 90 Q130 90 150 140 Q150 158 120 150 Q70 160 50 140 Z"
+          fill="#b5e0fa" stroke="#b5e0fa" stroke-width="2"/>
+        <!-- Head -->
+        <ellipse cx="90" cy="70" rx="22" ry="18" fill="#b5e0fa" stroke="#b5e0fa" stroke-width="2"/>
+        <!-- Legs -->
+        <path d="M65 140 Q60 170 70 180" stroke="#b5e0fa" stroke-width="5" stroke-linecap="round"/>
+        <path d="M120 150 Q125 170 120 180" stroke="#b5e0fa" stroke-width="5" stroke-linecap="round"/>
+        <path d="M95 140 Q90 175 95 180" stroke="#b5e0fa" stroke-width="4" stroke-linecap="round"/>
+        <!-- Antlers -->
+        <path d="M80 57 Q60 35 75 25 Q80 22 85 35 Q88 45 80 57 Z"
+          stroke="#e6f6fa" stroke-width="2.5" fill="none"/>
+        <path d="M100 57 Q120 30 110 15 Q105 10 97 26 Q92 38 100 57 Z"
+          stroke="#e6f6fa" stroke-width="2.5" fill="none"/>
+        <!-- Glowy dots -->
+        <circle cx="95" cy="130" r="2" fill="#e6f6fa" opacity="0.7"/>
+        <circle cx="130" cy="140" r="2" fill="#e6f6fa" opacity="0.7"/>
+        <circle cx="110" cy="80" r="1.5" fill="#e6f6fa" opacity="0.7"/>
+        <circle cx="100" cy="68" r="1.2" fill="#e6f6fa" opacity="0.7"/>
+      </g>
+      <defs>
+        <filter id="glow" x="0" y="0" width="240" height="190" filterUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="stars">✧ ✦ ✧</div>
+    <h1>NUESTRA BODA X&amp;M</h1>
+    <div class="magic-border"></div>
+    <div class="date">27 de diciembre 2025</div>
+
+    <!-- Frase de Snape -->
+    <blockquote class="snape-quote">
+      “¿Después de tanto tiempo?”
+      <span class="snape-always">— Siempre.</span>
+    </blockquote>
+
+    <div class="section temple-salon">
+      <span>Salón: <b>QUINTA SAN JAVIER</b></span>
+      <br>
+      <span>Templo: <b>TEMPLO DE LA SANTISIMA TRINIDAD</b></span>
+    </div>
+
+    <div class="btn-group">
+      <a class="btn" href="https://share.google/97os8jYm9CbJ7G2rQ" target="_blank">
+        <span class="icon">🏰</span> Ver Salón
+      </a>
+      <a class="btn" href="https://share.google/eFcWjV9JhC8S09kWm" target="_blank">
+        <span class="icon">⛪</span> Ver Templo
+      </a>
+    </div>
+
+    <div class="video">
+      <video controls poster="https://i.imgur.com/OvMZBs9.jpg">
+        <source src="https://raw.githubusercontent.com/Antoniphantom/Antoniphantom/main/video.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Vestimenta</div>
+      Formal mágica (Traje y vestido largo/corto elegante)
+    </div>
+
+    <div class="warning">
+      ✧ Agradecemos que los invitados no vistan de blanco, marfil o champagne ✧
+    </div>
+
+    <div class="section">
+      <div class="section-title">Mesa de regalos</div>
+      <ul class="gifts-list">
+        <li>
+          <a href="https://www.liverpool.com.mx/tienda/mesa-de-regalos/51752296" target="_blank">
+            Liverpool (51752296)
+          </a>
+        </li>
+        <li>
+          <a href="https://www.amazon.com.mx/wedding/registry/13DMPF3KN18JO" target="_blank">
+            Amazon
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Confirma tu asistencia</div>
+      <form id="rsvp-form">
+        <input type="text" name="nombre" placeholder="Tu nombre" required>
+        <select name="asistira" required>
+          <option value="">¿Asistirás?</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+        </select>
+        <input type="number" name="personas" min="1" max="10" placeholder="¿Cuántas personas?" required>
+        <input type="tel" name="telefono" placeholder="Teléfono de contacto (opcional)">
+        <button type="submit">Confirmar</button>
+      </form>
+      <div id="rsvp-success" class="success-msg" style="display:none;">
+        ¡Gracias por confirmar tu asistencia! <br> ¡Esperamos verte en este día mágico!
+      </div>
+    </div>
+    <div class="stars">✧ ✦ ✧</div>
+  </div>
+  <script>
+    // Envia el formulario al Apps Script de Google (AJAX)
+    document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var data = new FormData(form);
+
+      fetch('https://script.google.com/macros/s/AKfycbytSLCyIrxk3IlX4uq4odtaZ0lV45w7mZ_Y4br5-MKeGW1lkqj2r37pS00utORI-6rY/exec', {
+        method: 'POST',
+        body: data
+      })
+      .then(response => response.ok ? response.text() : Promise.reject('Error en el registro'))
+      .then(function() {
+        form.style.display = 'none';
+        document.getElementById('rsvp-success').style.display = 'block';
+      })
+      .catch(function() {
+        alert('Hubo un error al registrar tu respuesta, intenta nuevamente.');
+      });
+    });
+  </script>
+</body>
+</html>

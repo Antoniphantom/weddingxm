@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUESTRA BODA X&M</title>
+  <link href="https://fonts.cdnfonts.com/css/harry-p" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #3a2c2a;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 20% 20%, #f5e6b7 0 2%, transparent 40%),
+        radial-gradient(circle at 80% 80%, #f7e2c0 0 2%, transparent 40%);
+      background-repeat: no-repeat;
+      overflow-x: hidden;
+    }
+    .envelope-screen, .invite-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s, visibility 1s;
+    }
+    .envelope-screen {
+      background: #fff;
+      z-index: 20;
+    }
+    .envelope-img {
+      width: 340px;
+      max-width: 96vw;
+      box-shadow: 0 4px 48px #b7a56d55;
+      border-radius: 18px;
+      position: relative;
+      margin-bottom: 1.6em;
+      background: #fff;
+    }
+    .seal-btn {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      border: none;
+      background: none;
+      outline: none;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.15s;
+    }
+    .seal-btn:active {
+      transform: translateX(-50%) scale(0.93);
+    }
+    .seal-icon {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px #a0785a22;
+      background: #843a1c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Harry P', serif;
+      font-size: 2.6em;
+      color: #ffe166;
+      border: 4px solid #ad8843;
+      letter-spacing: 0.1em;
+      position: relative;
+    }
+    .snape-phrase {
+      text-align: center;
+      font-family: 'Harry P', serif;
+      font-size: 1.14em;
+      color: #7f620d;
+      margin-top: 1.4em;
+      margin-bottom: 0.6em;
+      letter-spacing: 0.5px;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .envelope-date {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      color: #b6a05f;
+      font-size: 1.18em;
+      margin-bottom: 0.5em;
+      letter-spacing: 1px;
+    }
+    .envelope-title {
+      text-align: center;
+      font-family: 'Harry P', serif;
+      font-size: 2.1em;
+      color: #8d5c18;
+      margin-bottom: 0.7em;
+      letter-spacing: 1px;
+      background: none;
+    }
+    .snitch {
+      font-family: 'Harry P', serif;
+      color: #c9a770;
+      font-size: 1.25em;
+      margin: 0 0.5em;
+      vertical-align: middle;
+    }
+    /* Patronus effect */
+    .patronus-flash {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 50;
+      background: radial-gradient(circle at 50% 60%, rgba(184,224,250,0.6) 0%, rgba(255,255,255,0.48) 20%, rgba(255,255,255,0.08) 80%, transparent 100%);
+      animation: patronus-flash 1.15s cubic-bezier(.76,.15,.49,.98);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+    }
+    @keyframes patronus-flash {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      50% { opacity: 1; }
+      95% { opacity: 0.9; }
+      100% { opacity: 0; }
+    }
+    .patronus-deer-flash {
+      width: 230px;
+      opacity: 0.80;
+      animation: deer-fade 1.2s cubic-bezier(.76,.15,.49,.98);
+      filter: drop-shadow(0 0 24px #b5e0fa) brightness(1.5);
+      margin-bottom: 40px;
+    }
+    @keyframes deer-fade {
+      0% { opacity: 0; transform: scale(0.7) translateY(70px);}
+      20% { opacity: 1; }
+      60% { opacity: 1; transform: scale(1.06) translateY(-8px);}
+      100% { opacity: 0; transform: scale(1.13) translateY(-18px);}
+    }
+    .hidden { opacity: 0; pointer-events: none; visibility: hidden; }
+    .invite-screen {
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      transition: opacity 1s, visibility 1s;
+      background: #fff;
+    }
+    .invite-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.2em;
+      justify-content: center;
+      margin: 1.3em 0 0.2em 0;
+    }
+    .audio-btn {
+      background: #c9a770;
+      color: #fffbe5;
+      border: 2px solid #a0785a;
+      border-radius: 100%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.7em;
+      font-family: 'Harry P', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 10px #e2c06a33;
+    }
+    .audio-btn:hover {
+      background: #f5e6b7;
+      color: #7a6123;
+      border-color: #d8bb75;
+    }
+    .audio-label {
+      color: #7f620d;
+      font-family: 'Harry P', serif;
+      font-size: 1.1em;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 700px) {
+      .envelope-img { width: 98vw; }
+      .patronus-deer-flash { width: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ENVELOPE SCREEN -->
+  <div class="envelope-screen" id="envelopeScreen">
+    <div class="envelope-img" style="position:relative;">
+      <img src="envelope.jpg" alt="Sobre de invitación" style="width:100%; border-radius:18px; display:block;">
+      <button class="seal-btn" id="sealBtn" aria-label="Abrir invitación">
+        <span class="seal-icon">X&amp;M</span>
+      </button>
+    </div>
+    <div class="envelope-title">NUESTRA BODA</div>
+    <div class="snape-phrase">“Después de todo este tiempo... <b>Siempre</b>”</div>
+    <div class="envelope-date">
+      <span class="snitch">⚡</span>27.12.2025<span class="snitch">⚡</span>
+    </div>
+  </div>
+  <!-- Patronus Flash Effect -->
+  <div class="patronus-flash hidden" id="patronusFlash">
+    <svg class="patronus-deer-flash" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#glow2)">
+        <path d="M120 150 Q135 120 170 120 Q180 120 180 130 Q180 140 165 145 Q155 150 140 150 Z"
+          fill="#b5e0fa" opacity="0.22"/>
+        <path d="M70 165 Q85 150 120 150 Q140 150 140 170 Q140 180 120 180 Q100 180 70 165 Z"
+          fill="#d5f0fa" opacity="0.16"/>
+        <path d="M50 140 Q60 100 90 90 Q130 90 150 140 Q150 158 120 150 Q70 160 50 140 Z"
+          fill="#b5e0fa" stroke="#b5e0fa" stroke-width="2"/>
+        <ellipse cx="90" cy="70" rx="22" ry="18" fill="#b5e0fa" stroke="#b5e0fa" stroke-width="2"/>
+        <path d="M65 140 Q60 170 70 180" stroke="#b5e0fa" stroke-width="5" stroke-linecap="round"/>
+        <path d="M120 150 Q125 170 120 180" stroke="#b5e0fa" stroke-width="5" stroke-linecap="round"/>
+        <path d="M95 140 Q90 175 95 180" stroke="#b5e0fa" stroke-width="4" stroke-linecap="round"/>
+        <path d="M80 57 Q60 35 75 25 Q80 22 85 35 Q88 45 80 57 Z"
+          stroke="#e6f6fa" stroke-width="2.5" fill="none"/>
+        <path d="M100 57 Q120 30 110 15 Q105 10 97 26 Q92 38 100 57 Z"
+          stroke="#e6f6fa" stroke-width="2.5" fill="none"/>
+        <circle cx="95" cy="130" r="2" fill="#e6f6fa" opacity="0.7"/>
+        <circle cx="130" cy="140" r="2" fill="#e6f6fa" opacity="0.7"/>
+        <circle cx="110" cy="80" r="1.5" fill="#e6f6fa" opacity="0.7"/>
+        <circle cx="100" cy="68" r="1.2" fill="#e6f6fa" opacity="0.7"/>
+      </g>
+      <defs>
+        <filter id="glow2" x="0" y="0" width="240" height="190" filterUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+  </div>
+  <!-- INVITATION SCREEN -->
+  <div class="invite-screen hidden" id="inviteScreen">
+    <!-- Botones de música -->
+    <div class="audio-controls">
+      <button class="audio-btn" id="playAudio" title="Reproducir música" aria-label="Reproducir">
+        &#9658;
+      </button>
+      <button class="audio-btn" id="pauseAudio" title="Pausar música" aria-label="Pausar">
+        &#10073;&#10073;
+      </button>
+      <span class="audio-label">Música mágica</span>
+    </div>
+    <!-- Aquí va el resto de la invitación, puedes pegar el HTML mágico de la invitación aquí: -->
+
+    <div class="stars">✧ ✦ ✧</div>
+    <h1 style="font-family:'Harry P',serif;color:#7f620d;text-align:center;letter-spacing:2px;">NUESTRA BODA X&amp;M</h1>
+    <div class="magic-border" style="margin-bottom: 1.5em;"></div>
+    <div class="date" style="text-align:center;color:#a0785a;font-size:1.2em;">27 de diciembre 2025</div>
+
+    <blockquote class="snape-quote" style="text-align:center; font-size:1.17em; font-family:'Harry P',serif; color:#4d3a28; background:rgba(248,246,239,0.9); border-left:5px solid #b6a05f; border-radius:8px; max-width:420px; margin:1.5em auto;">
+      “¿Después de tanto tiempo?”
+      <span class="snape-always" style="display:block;font-size:1.18em;margin-top:0.6em;color:#7f620d;">— Siempre.</span>
+    </blockquote>
+
+    <div class="section temple-salon" style="text-align:center; font-weight:600; margin-bottom:0.8em; font-size:1.14em;">
+      <span>Salón: <b>QUINTA SAN JAVIER</b></span>
+      <br>
+      <span>Templo: <b>TEMPLO DE LA SANTISIMA TRINIDAD</b></span>
+    </div>
+
+    <div class="btn-group" style="display:flex;gap:1em;justify-content:center;margin-bottom:2em;flex-wrap:wrap;">
+      <a class="btn" href="https://share.google/97os8jYm9CbJ7G2rQ" target="_blank" style="font-family:'Harry P',serif;">🏰 Ver Salón</a>
+      <a class="btn" href="https://share.google/eFcWjV9JhC8S09kWm" target="_blank" style="font-family:'Harry P',serif;">⛪ Ver Templo</a>
+    </div>
+
+    <div class="video" style="display:flex;justify-content:center;margin-bottom:2em;">
+      <video controls poster="https://i.imgur.com/OvMZBs9.jpg" style="width:100%;max-width:420px;border-radius:15px;box-shadow:0 4px 24px #e7d6b680;aspect-ratio:16/9;border:3px solid #c9a770;background:#fff;">
+        <source src="https://raw.githubusercontent.com/Antoniphantom/Antoniphantom/main/video.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+    </div>
+
+    <div class="section">
+      <div class="section-title" style="font-family:'Harry P',serif;font-size:1.2em;color:#a0785a;">Vestimenta</div>
+      Formal mágica (Traje y vestido largo/corto elegante)
+    </div>
+
+    <div class="warning" style="background:#fff8e8;color:#b84a4a;padding:1em;border-radius:8px;margin-bottom:2em;text-align:center;border:1.5px solid #ffd6ae;font-weight:600;letter-spacing:0.6px;font-family:'Montserrat',sans-serif;">
+      ✧ Agradecemos que los invitados no vistan de blanco, marfil o champagne ✧
+    </div>
+
+    <div class="section">
+      <div class="section-title" style="font-family:'Harry P',serif;font-size:1.2em;color:#a0785a;">Mesa de regalos</div>
+      <ul class="gifts-list" style="display:flex;gap:1em;justify-content:center;flex-wrap:wrap;padding:0;margin:0.4em 0 0 0;list-style:none;">
+        <li>
+          <a href="https://www.liverpool.com.mx/tienda/mesa-de-regalos/51752296" target="_blank" style="color:#7f620d;background:#fffbe5;padding:0.4em 1em;border-radius:8px;border:1.5px solid #e1d199;text-decoration:underline;font-weight:500;font-family:'Montserrat',sans-serif;">Liverpool (51752296)</a>
+        </li>
+        <li>
+          <a href="https://www.amazon.com.mx/wedding/registry/13DMPF3KN18JO" target="_blank" style="color:#7f620d;background:#fffbe5;padding:0.4em 1em;border-radius:8px;border:1.5px solid #e1d199;text-decoration:underline;font-weight:500;font-family:'Montserrat',sans-serif;">Amazon</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title" style="font-family:'Harry P',serif;font-size:1.2em;color:#a0785a;">Confirma tu asistencia</div>
+      <form id="rsvp-form">
+        <input type="text" name="nombre" placeholder="Tu nombre" required>
+        <select name="asistira" required>
+          <option value="">¿Asistirás?</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+        </select>
+        <input type="number" name="personas" min="1" max="10" placeholder="¿Cuántas personas?" required>
+        <input type="tel" name="telefono" placeholder="Teléfono de contacto (opcional)">
+        <button type="submit">Confirmar</button>
+      </form>
+      <div id="rsvp-success" class="success-msg" style="display:none;">
+        ¡Gracias por confirmar tu asistencia! <br> ¡Esperamos verte en este día mágico!
+      </div>
+    </div>
+    <div class="stars">✧ ✦ ✧</div>
+    <!-- Patronus ciervo animado de fondo -->
+    <div class="patronus-deer-container" aria-hidden="true" style="position:fixed;left:-180px;top:65%;width:180px;height:160px;z-index:0;pointer-events:none;opacity:0.14;animation:deer-walk 22s linear infinite;filter:drop-shadow(0px 0px 16px #b5cbe7) blur(0.5px);">
+      <svg viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#glow)">
+          <path d="M120 150 Q135 120 170 120 Q180 120 180 130 Q180 140 165 145 Q155 150 140 150 Z"
+            fill="#b5e0fa" opacity="0.12"/>
+          <path d="M70 165 Q85 150 120 150 Q140 150 140 170 Q140 180 120 180 Q100 180 70 165 Z"
+            fill="#d5f0fa" opacity="0.10"/>
+          <path d="M50 140 Q60 100 90 90 Q130 90 150 140 Q150 158 120 150 Q70 160 50 140 Z"
+            fill="#b5e0fa" stroke="#b5e0fa" stroke-width="2"/>
+          <ellipse cx="90" cy="70" rx="22" ry="18" fill="#b5e0fa" stroke="#b5e0fa" stroke-width="2"/>
+          <path d="M65 140 Q60 170 70 180" stroke="#b5e0fa" stroke-width="5" stroke-linecap="round"/>
+          <path d="M120 150 Q125 170 120 180" stroke="#b5e0fa" stroke-width="5" stroke-linecap="round"/>
+          <path d="M95 140 Q90 175 95 180" stroke="#b5e0fa" stroke-width="4" stroke-linecap="round"/>
+          <path d="M80 57 Q60 35 75 25 Q80 22 85 35 Q88 45 80 57 Z"
+            stroke="#e6f6fa" stroke-width="2.5" fill="none"/>
+          <path d="M100 57 Q120 30 110 15 Q105 10 97 26 Q92 38 100 57 Z"
+            stroke="#e6f6fa" stroke-width="2.5" fill="none"/>
+          <circle cx="95" cy="130" r="2" fill="#e6f6fa" opacity="0.7"/>
+          <circle cx="130" cy="140" r="2" fill="#e6f6fa" opacity="0.7"/>
+          <circle cx="110" cy="80" r="1.5" fill="#e6f6fa" opacity="0.7"/>
+          <circle cx="100" cy="68" r="1.2" fill="#e6f6fa" opacity="0.7"/>
+        </g>
+        <defs>
+          <filter id="glow" x="0" y="0" width="240" height="190" filterUnits="userSpaceOnUse">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+    </div>
+    <style>
+      @keyframes deer-walk {
+        0% { left: -180px; opacity: 0.16; }
+        3% { opacity: 0.24; }
+        85% { opacity: 0.13; }
+        100% { left: 100vw; opacity: 0.09; }
+      }
+    </style>
+  </div>
+  <!-- REPRODUCTOR DE AUDIO INVISIBLE -->
+  <audio id="audioBG" src="audio.mp3" preload="auto"></audio>
+  <audio id="spellSound" src="hechizo.mp3" preload="auto"></audio>
+  <script>
+    // Pantallas
+    const envelopeScreen = document.getElementById('envelopeScreen');
+    const inviteScreen = document.getElementById('inviteScreen');
+    const patronusFlash = document.getElementById('patronusFlash');
+    const sealBtn = document.getElementById('sealBtn');
+    // Audio
+    const audioBG = document.getElementById('audioBG');
+    const spellSound = document.getElementById('spellSound');
+    const playAudioBtn = document.getElementById('playAudio');
+    const pauseAudioBtn = document.getElementById('pauseAudio');
+
+    // Música comienza desde 2:40 (160 segundos)
+    const MUSIC_START_TIME = 160;
+
+    function showInvite() {
+      // 1. Muestra destello patronus con sonido
+      patronusFlash.classList.remove('hidden');
+      spellSound.currentTime = 0;
+      spellSound.play().catch(()=>{});
+      setTimeout(() => {
+        patronusFlash.classList.add('hidden');
+        // 2. Oculta sobre y muestra invitación
+        envelopeScreen.classList.add('hidden');
+        inviteScreen.classList.remove('hidden');
+        // 3. Inicia música
+        audioBG.currentTime = MUSIC_START_TIME;
+        audioBG.play().catch(()=>{});
+      }, 1200);
+    }
+
+    sealBtn.addEventListener('click', showInvite);
+
+    // Botones de música
+    playAudioBtn.addEventListener('click', function() {
+      audioBG.currentTime = Math.max(audioBG.currentTime, MUSIC_START_TIME);
+      audioBG.play();
+    });
+    pauseAudioBtn.addEventListener('click', function() {
+      audioBG.pause();
+    });
+
+    // RSVP form submit
+    document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var data = new FormData(form);
+
+      fetch('https://script.google.com/macros/s/AKfycbytSLCyIrxk3IlX4uq4odtaZ0lV45w7mZ_Y4br5-MKeGW1lkqj2r37pS00utORI-6rY/exec', {
+        method: 'POST',
+        body: data
+      })
+      .then(response => response.ok ? response.text() : Promise.reject('Error en el registro'))
+      .then(function() {
+        form.style.display = 'none';
+        document.getElementById('rsvp-success').style.display = 'block';
+      })
+      .catch(function() {
+        alert('Hubo un error al registrar tu respuesta, intenta nuevamente.');
+      });
+    });
+
+    // Opcional: detiene la música si se sale de pantalla
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) audioBG.pause();
+    });
+  </script>
+</body>
+</html>
